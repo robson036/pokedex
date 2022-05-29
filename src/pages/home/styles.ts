@@ -1,11 +1,14 @@
 import styled from "styled-components"
+import colors from "../../styleguide/colors"
+import fonts from "../../styleguide/fonts"
 
 export const Container = styled.div`
     width: 100%;
-    background-color: #f9f9f9;
+    background-color: ${colors.greyscale.background};
 `
 
 export const H1 = styled.h1`
-    color: #0075be;
-    font-size: 2.5rem;
+    color: ${colors.greyscale.lightGray};
+    font-size: ${fonts.size.xl};
+    font-weight: ${fonts.weight.regular};
 `
