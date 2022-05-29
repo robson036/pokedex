@@ -8,7 +8,8 @@ export const Container = styled.div`
 `
 
 export const H1 = styled.h1`
-    color: ${colors.greyscale.lightGray};
+    color: ${colors.greyscale.darkGrey};
     font-size: ${fonts.size.xl};
     font-weight: ${fonts.weight.regular};
+    text-align: center;
 `
