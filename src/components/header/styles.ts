@@ -61,7 +61,7 @@ export const NavContainer = styled.div`
     flex: none;
     order: 0;
     flex-grow: 0;
-    width: 1366px;
+    width: 1200px;
 
     @media (max-width: ${size.xl}) {
         width: 100%;

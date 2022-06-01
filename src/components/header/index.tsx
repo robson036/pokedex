@@ -19,6 +19,7 @@ const Header = () => {
                         onClick={() =>
                             setIsResponsiveMenuOpened(!isResponsiveMenuOpened)
                         }
+                        data-testid="responsive-menu-button"
                     >
                         <span></span>
                         <span></span>

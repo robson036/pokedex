@@ -9,7 +9,7 @@ const NavItems = () => {
                 </Styles.NavLink>
             </li>
             <li>
-                <Styles.NavLink href="#">Pokemons</Styles.NavLink>
+                <Styles.NavLink href="#">Pokémons</Styles.NavLink>
             </li>
         </>
     )
