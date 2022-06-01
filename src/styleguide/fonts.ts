@@ -2,6 +2,13 @@ const fonts = {
     family: {
         base: "Poppins"
     },
+    /**
+     * @xs "0.5rem"
+     * @sm "0.625rem"
+     * @md "0.75rem"
+     * @lg "0.875rem"
+     * @xl "1.5rem"
+     */
     size: {
         xs: "0.5rem",
         sm: "0.625rem",
