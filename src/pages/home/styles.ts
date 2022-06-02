@@ -13,3 +13,11 @@ export const H1 = styled.h1`
     font-weight: ${fonts.weight.regular};
     text-align: center;
 `
+
+export const ListContainer = styled.div`
+    width: 100%;
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+`

@@ -36,7 +36,7 @@ export const Container = styled.div`
     @media (min-width: ${size.sm}) {
         padding: 32px 68px;
         height: ${({ isResponsiveMenuOpen }: ComponentProps) =>
-            isResponsiveMenuOpen ? "100%" : "119px"};
+            isResponsiveMenuOpen ? "100vh" : "119px"};
     }
 
     @media (max-width: ${size.xl}) {
