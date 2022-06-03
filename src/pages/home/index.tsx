@@ -12,6 +12,7 @@ import apiCall from "../../services/api.service"
 import { IPokemon, PokemonType } from "../../services/types"
 
 const Home = () => {
+    const [isLoading, setIsLoading] = useState(false)
     const [pokemonTypes, setPokemonTypes] = useState<PokemonType[]>([
         { name: "", url: "" }
     ])
@@ -22,15 +23,33 @@ const Home = () => {
         previous: ""
     })
 
-    async function fetchPokemonList(url = "") {
+    const orderPokemonByType = (list: any) => {
+        return list.map((item: any) => {
+            return {
+                name: item.pokemon.name,
+                url: item.pokemon.url
+            }
+        })
+    }
+
+    async function fetchPokemonList(url = "", searchBy = "") {
+        setIsLoading(true)
         const pokemonListResult = await apiCall(url)
-        setPokemonList(pokemonListResult.results)
+
+        const list =
+            searchBy === "type"
+                ? orderPokemonByType(pokemonListResult.pokemon)
+                : pokemonListResult.results
+
+        setPokemonList(list)
         setPagination({
             ...pagination,
             count: pokemonListResult.count,
             next: pokemonListResult.next,
             previous: pokemonListResult.previous
         })
+
+        setIsLoading(false)
     }
 
     useEffect(() => {
@@ -53,6 +72,12 @@ const Home = () => {
                             <PokemonTypeTag
                                 key={index}
                                 pokemonType={type.name}
+                                onClick={() =>
+                                    fetchPokemonList(
+                                        `/type/${type.name}`,
+                                        "type"
+                                    )
+                                }
                             />
                         ))}
                     </Column>
@@ -60,12 +85,33 @@ const Home = () => {
             </Container>
 
             <Container>
+                {pagination.count && (
+                    <Styles.PaginationRow>
+                        <Styles.PaginationCountSpan>{`Total de itens: ${pagination.count}`}</Styles.PaginationCountSpan>
+                        <Styles.ButtonPagination
+                            onClick={() =>
+                                fetchPokemonList(pagination.previous)
+                            }
+                        >
+                            Anterior
+                        </Styles.ButtonPagination>
+                        <Styles.ButtonPagination
+                            onClick={() => fetchPokemonList(pagination.next)}
+                        >
+                            Próxima
+                        </Styles.ButtonPagination>
+                    </Styles.PaginationRow>
+                )}
                 <Row>
                     <Column>
                         <Styles.ListContainer>
-                            {pokemonList.map((pokemon, index) => (
-                                <PokemonCard name={pokemon.name} key={index} />
-                            ))}
+                            {!isLoading &&
+                                pokemonList.map((pokemon, index) => (
+                                    <PokemonCard
+                                        name={pokemon.name}
+                                        key={index}
+                                    />
+                                ))}
                         </Styles.ListContainer>
                     </Column>
                 </Row>

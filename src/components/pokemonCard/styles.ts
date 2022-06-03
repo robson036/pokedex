@@ -20,6 +20,9 @@ export const CardContainer = styled.div`
         cursor: pointer;
         transition: all 0.5s;
         margin: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
         @media only screen and (max-width: 1184px) {
             width: 100%;
