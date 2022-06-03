@@ -8,9 +8,6 @@ const NavItems = () => {
                     Home
                 </Styles.NavLink>
             </li>
-            <li>
-                <Styles.NavLink href="#">Pokémons</Styles.NavLink>
-            </li>
         </>
     )
 }

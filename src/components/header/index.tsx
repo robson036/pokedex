@@ -7,7 +7,11 @@ import * as Styles from "./styles"
 import NavItems from "./navItems"
 import Search from "./search"
 
-const Header = () => {
+type Props = {
+    onSearch: (key: string) => void
+}
+
+const Header = (props: Props) => {
     const [isResponsiveMenuOpened, setIsResponsiveMenuOpened] = useState(false)
 
     return (
@@ -38,7 +42,7 @@ const Header = () => {
 
                 <Styles.UserInteractionContainer>
                     <Styles.ButtonHolder>
-                        <Search />
+                        <Search onSearch={props.onSearch} />
                     </Styles.ButtonHolder>
                 </Styles.UserInteractionContainer>
             </Styles.NavContainer>
@@ -53,7 +57,7 @@ const Header = () => {
                 </Styles.ResponsiveNavigation>
 
                 <Styles.ResponsiveButtonHolder>
-                    <Search />
+                    <Search onSearch={props.onSearch} />
                 </Styles.ResponsiveButtonHolder>
             </Styles.ResponsiveNavContainer>
         </Styles.Container>

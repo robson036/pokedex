@@ -6,13 +6,18 @@ import PokemonTypeTag from "../../components/pokemonTypes"
 import { Column, Container, Row } from "../../components/gridSystem"
 
 import PokemonCard from "../../components/pokemonCard"
-
+import { useLocation, useNavigate } from "react-router-dom"
 import apiCall from "../../services/api.service"
 
 import { IPokemon, PokemonType } from "../../services/types"
 
 const Home = () => {
+    const location: any = useLocation()
+
+    const searchParam = location.state ? location.state.searchParam : ""
+
     const [isLoading, setIsLoading] = useState(false)
+
     const [pokemonTypes, setPokemonTypes] = useState<PokemonType[]>([
         { name: "", url: "" }
     ])
@@ -39,6 +44,8 @@ const Home = () => {
         const list =
             searchBy === "type"
                 ? orderPokemonByType(pokemonListResult.pokemon)
+                : searchBy === "key"
+                ? [pokemonListResult]
                 : pokemonListResult.results
 
         setPokemonList(list)
@@ -53,6 +60,10 @@ const Home = () => {
     }
 
     useEffect(() => {
+        if (searchParam) {
+            fetchPokemonList(`/pokemon/${searchParam}`, "key")
+            return
+        }
         const getPokemonList = async () => {
             const typeList = await apiCall("/type")
             setPokemonTypes(typeList.results)
@@ -63,7 +74,9 @@ const Home = () => {
 
     return (
         <Styles.Container>
-            <Header />
+            <Header
+                onSearch={(key) => fetchPokemonList(`/pokemon/${key}`, "key")}
+            />
 
             <Container>
                 <Row>
@@ -106,6 +119,7 @@ const Home = () => {
                     <Column>
                         <Styles.ListContainer>
                             {!isLoading &&
+                                pokemonList.length &&
                                 pokemonList.map((pokemon, index) => (
                                     <PokemonCard
                                         name={pokemon.name}

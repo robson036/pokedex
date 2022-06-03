@@ -8,8 +8,10 @@ type CardProps = {
 import apiCall from "../../services/api.service"
 
 import { IPokemon } from "../../services/types"
+import { useNavigate } from "react-router-dom"
 
 const PokemonCard = (props: CardProps) => {
+    const navigate = useNavigate()
     const [pokemon, setPokemon] = useState<IPokemon>({
         id: 0,
         name: "",
@@ -42,7 +44,16 @@ const PokemonCard = (props: CardProps) => {
     }, [])
 
     return (
-        <Styles.CardContainer pokemonType={pokemon.types[0].type.name}>
+        <Styles.CardContainer
+            pokemonType={pokemon.types[0].type.name}
+            onClick={() =>
+                navigate("/pokemon", {
+                    state: {
+                        pokemon: pokemon
+                    }
+                })
+            }
+        >
             <Styles.CardHeader pokemonType={pokemon.types[0].type.name}>
                 <span>{`#${pokemon?.id}`}</span>
             </Styles.CardHeader>
